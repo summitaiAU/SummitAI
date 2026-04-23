@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summit AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>
+  </head>
+  <body class="is-loading">
+    <div class="site-loader" data-site-loader aria-hidden="true">
+      <div class="site-loader-inner">
+        <div class="site-loader-brand">
+          <img
+            class="site-loader-logo"
+            src="./assets/mountain.png"
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+          />
+          <span class="site-loader-wordmark">Summit AI</span>
+        </div>
+        <span class="site-loader-line"></span>
+      </div>
+    </div>
+
+		    <header class="site-header" aria-label="Primary navigation">
+	      <a class="brand" href="#home" aria-label="Summit AI home">
+	        <img
+	          class="brand-mark"
+	          src="./assets/mountain.png"
+	          alt=""
+	          aria-hidden="true"
+	          decoding="async"
+	        />
+	        <span>Summit AI</span>
+	      </a>
+
+	      <nav class="nav-links" aria-label="Main menu">
+	        <a href="#trace">About</a>
+	        <a href="#work">Projects</a>
+	        <a href="#contact">Contact</a>
+	      </nav>
+
+      <a class="nav-accent" href="#contact" aria-label="Book a call"></a>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero-panel" id="home" data-scroll-hero aria-label="Hero content area">
+        <div class="hero-surface" aria-hidden="true">
+          <canvas id="shader-background" class="shader-background"></canvas>
+        </div>
+
+	        <div class="hero-content">
+	          <div class="hero-copy">
+	            <div
+	              class="hero-social-proof"
+	              role="img"
+	              aria-label="Trusted client profile cluster with a five-star rating"
+	            >
+	              <div class="hero-avatar-stack" aria-hidden="true">
+	                <img class="hero-avatar-card" src="assets/hero-heads/head-1.png" alt="" loading="eager" decoding="async" />
+	                <img class="hero-avatar-card" src="assets/hero-heads/head-2.png" alt="" loading="eager" decoding="async" />
+	                <img class="hero-avatar-card" src="assets/hero-heads/head-3.png" alt="" loading="eager" decoding="async" />
+	                <img class="hero-avatar-card" src="assets/hero-heads/head-4.png" alt="" loading="eager" decoding="async" />
+	              </div>
+	              <div class="hero-rating" aria-hidden="true">
+	                <span>★</span>
+	                <span>★</span>
+	                <span>★</span>
+	                <span>★</span>
+	                <span>★</span>
+	              </div>
+	            </div>
+	            <p class="hero-eyebrow">Custom workflow systems for growing businesses</p>
+	            <h1 class="hero-headline">
+	              Put AI to work inside your current stack.
+              <span>Stay in control.</span>
+            </h1>
+            <p class="hero-subheadline">
+              Fix slow follow-up, fragmented data, and manual work with AI systems built
+              inside your current stack, so you can spend more time on the work that matters.
+            </p>
+            <div class="hero-actions" aria-label="Hero calls to action">
+              <a class="hero-button hero-button-primary" href="#contact">Book a Workflow Strategy Call</a>
+              <a class="hero-button hero-button-secondary" href="#contact">Request a Fit Assessment</a>
+            </div>
+            <p class="hero-trust">
+              One bottleneck first. Built around your current stack. Human review where risk matters.
+            </p>
+          </div>
+
+	          <div class="hero-visual" aria-label="Workflow system preview">
+	            <div class="workflow-diagram" aria-label="TRACE system preview">
+	              <div class="workflow-diagram-shell">
+                <div class="workflow-diagram-rule" aria-hidden="true">
+                  <span class="workflow-diagram-fill"></span>
+                </div>
+
+                <ol class="workflow-stage-preview">
+                  <li class="workflow-stage-preview-item is-active">
+                    <span class="workflow-stage-preview-index">01</span>
+                    <div class="workflow-stage-preview-copy">
+                      <strong>Triage the workflow</strong>
+                      <span>Operating reality before scope</span>
+                    </div>
+                  </li>
+                  <li class="workflow-stage-preview-item">
+                    <span class="workflow-stage-preview-index">02</span>
+                    <div class="workflow-stage-preview-copy">
+                      <strong>Resolve the bottleneck</strong>
+                      <span>Separate complaint from constraint</span>
+                    </div>
+                  </li>
+                  <li class="workflow-stage-preview-item">
+                    <span class="workflow-stage-preview-index">03</span>
+                    <div class="workflow-stage-preview-copy">
+                      <strong>Audit system readiness</strong>
+                      <span>Stack, access, and feasibility first</span>
+                    </div>
+                  </li>
+                  <li class="workflow-stage-preview-item">
+                    <span class="workflow-stage-preview-index">04</span>
+                    <div class="workflow-stage-preview-copy">
+                      <strong>Create phase one</strong>
+                      <span>Smallest high-leverage system</span>
+                    </div>
+                  </li>
+                </ol>
+
+                <p class="workflow-diagram-output">
+                  Current-stack first
+                  <span>Controlled phase one</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <section class="hero-logo-carousel" aria-label="Trusted platforms">
+            <div class="logo-marquee" data-logo-marquee>
+              <div class="logo-marquee-track">
+                <!-- Keep source logos in ../../Website%20images/Tool%20Logos/ and edit this list only. script.js clones it once for the seamless loop. -->
+                <ul class="logo-marquee-group">
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Asana.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/ClickUp.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/g-calendar.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/g-drive.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/g-mail.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/g314.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%202.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%203.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%204.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%206.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%205.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%208.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Group%209.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/HubSpot.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Loom.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Monday.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/LinkedIn.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Slack.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Stripe.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Subtract.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Xero%20Wordmark_White%201.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Zapier.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Zendesk.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                  <li class="logo-marquee-item">
+                    <img
+                      src="../../Website%20images/Tool%20Logos/Zoom.png"
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                    />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section class="next-section" id="work" aria-label="Our work">
+        <div class="section-shell">
+          <div
+            class="work-intro"
+            data-scroll-heading-group
+            data-scroll-distance="132"
+            data-scroll-sub-distance="156"
+            data-scroll-start="top 82%"
+          >
+            <h2 class="section-headline scroll-heading">Our Work<span>.</span></h2>
+            <p class="section-copy scroll-subheading">
+              We’ve helped businesses fix operational bottlenecks using the tools
+              they already rely on. Move faster, stay in control, and scale with
+              less chaos.
+            </p>
+          </div>
+
+          <div class="case-study-list" aria-label="Case studies">
+            <article class="case-study-card">
+              <img
+                class="case-study-image"
+                src="../../Website%20images/SPG/pexels-talharesitoglu-36983267.jpg"
+                alt="Sydney skyline placeholder image for case study one"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-overlay" aria-hidden="true"></div>
+              <img
+                class="case-study-logo"
+                src="../../Website%20images/SPG/sodhi-logo%201.png"
+                alt="Sodhi Property Group placeholder logo"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-copy">
+                <div class="case-study-meta">
+                  <p class="case-study-industry-label">Industry</p>
+                  <p class="case-study-industry">Property</p>
+                </div>
+                <div class="case-study-stats" aria-label="Case study one placeholder stats">
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="20" data-suffix="+">0+</p>
+                    <p class="case-study-stat-label">Hours saved per week.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="250">0</p>
+                    <p class="case-study-stat-label">Invoices processed per month.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="99" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Duplicate processing reduced.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="4">0</p>
+                    <p class="case-study-stat-label">Systems unified into one workflow.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case-study-card">
+              <img
+                class="case-study-image case-study-image--lower"
+                src="../../Website%20images/Operational%20Genius/Gemini_Generated_Image_rwx0sjrwx0sjrwx0.png"
+                alt="The Operations Genius team portrait for case study two"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-overlay" aria-hidden="true"></div>
+              <img
+                class="case-study-logo"
+                src="../../Website%20images/Operational%20Genius/TOG-logo.png"
+                alt="The Operations Genius logo"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-copy">
+                <div class="case-study-meta">
+                  <p class="case-study-industry-label">Industry</p>
+                  <p class="case-study-industry">Operations</p>
+                </div>
+                <div class="case-study-stats" aria-label="Case study two placeholder stats">
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="24" data-suffix="/7">0/7</p>
+                    <p class="case-study-stat-label">Website enquiry handling.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="60" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Faster first-response coverage.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="100" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Of core knowledge mapped for agentic use.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="100" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">After-hours enquiry coverage.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case-study-card case-study-card--hidden" aria-hidden="true">
+              <img
+                class="case-study-image"
+                src="../../Website%20images/A2B/pexels-kampus-8439693.jpg"
+                alt="A2B Funding client meeting image for case study three"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-overlay" aria-hidden="true"></div>
+              <img
+                class="case-study-logo"
+                src="../../Website%20images/A2B/Group%201%20copy.png"
+                alt="A2B Funding logo"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="case-study-copy">
+                <div class="case-study-meta">
+                  <p class="case-study-industry-label">Industry</p>
+                  <p class="case-study-industry">Finance</p>
+                </div>
+                <div class="case-study-stats" aria-label="Case study three placeholder stats">
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="15">0</p>
+                    <p class="case-study-stat-label">Hours saved per broker.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="80" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Reduction in onboarding admin.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="75" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Reduction in duplicate data entry.</p>
+                  </div>
+                  <div class="case-study-stat">
+                    <p class="case-study-stat-value" data-value="90" data-suffix="%">0%</p>
+                    <p class="case-study-stat-label">Fewer missing-field delays.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="trace-section" id="trace" data-trace-section aria-labelledby="trace-heading">
+        <div class="trace-panel">
+          <div class="trace-surface" aria-hidden="true">
+            <canvas id="trace-shader-background" class="trace-shader-background"></canvas>
+          </div>
+
+          <div class="trace-content">
+            <div class="trace-shell">
+              <aside class="trace-rail" aria-label="TRACE overview">
+                <p class="trace-eyebrow">Signature Method</p>
+                <h2 class="trace-headline" id="trace-heading">
+                  TRACE is how we identify the right system to build first.
+                </h2>
+                <p class="trace-copy">
+                  We work inside the stack you already have, isolate the real bottleneck,
+                  test readiness before scope, then build the smallest system that creates
+                  operational clarity.
+                </p>
+
+                <div class="trace-proof-strip" aria-label="TRACE principles">
+                  <span>Current-stack first</span>
+                  <span>One bottleneck first</span>
+                  <span>Controlled phase one</span>
+                </div>
+
+                <div class="trace-letters" aria-hidden="true">
+                  <span class="trace-letter" data-trace-letter="0">T</span>
+                  <span class="trace-letter" data-trace-letter="1">R</span>
+                  <span class="trace-letter" data-trace-letter="2">A</span>
+                  <span class="trace-letter" data-trace-letter="3">C</span>
+                  <span class="trace-letter" data-trace-letter="4">E</span>
+                </div>
+              </aside>
+
+              <div class="trace-stage-region">
+                <div class="trace-progress-rule" aria-hidden="true">
+                  <span class="trace-progress-fill" data-trace-progress-fill></span>
+                </div>
+
+                <div class="trace-stage-viewport">
+                  <ol class="trace-stage-list">
+                    <li class="trace-stage" data-trace-stage="0">
+                      <div class="trace-stage-topline">
+                        <span class="trace-stage-index">01</span>
+                        <div class="trace-stage-heading">
+                          <h3 class="trace-stage-title">Triage the workflow</h3>
+                        </div>
+                      </div>
+
+                      <div class="trace-stage-body">
+                        <p class="trace-stage-doctrine">
+                          Start with the operating reality, not the tool.
+                        </p>
+
+                        <div class="trace-stage-details">
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this does</p>
+                            <p class="trace-detail-copy">
+                              Understand where drag shows up, who owns it, and what the team is
+                              compensating for manually.
+                            </p>
+                          </div>
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this prevents</p>
+                            <p class="trace-detail-copy">
+                              Jumping into automation before the workflow is clear.
+                            </p>
+                          </div>
+                        </div>
+
+                        <p class="trace-stage-output">
+                          Output
+                          <span>Workflow map</span>
+                        </p>
+                      </div>
+                    </li>
+
+                    <li class="trace-stage" data-trace-stage="1">
+                      <div class="trace-stage-topline">
+                        <span class="trace-stage-index">02</span>
+                        <div class="trace-stage-heading">
+                          <h3 class="trace-stage-title">Resolve the right bottleneck</h3>
+                        </div>
+                      </div>
+
+                      <div class="trace-stage-body">
+                        <p class="trace-stage-doctrine">
+                          Separate the complaint from the constraint.
+                        </p>
+
+                        <div class="trace-stage-details">
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this does</p>
+                            <p class="trace-detail-copy">
+                              Distinguish visible pain from the handoff, systems, or visibility
+                              problem causing it.
+                            </p>
+                          </div>
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this prevents</p>
+                            <p class="trace-detail-copy">
+                              Building the requested feature instead of fixing the real drag.
+                            </p>
+                          </div>
+                        </div>
+
+                        <p class="trace-stage-output">
+                          Output
+                          <span>Bottleneck diagnosis</span>
+                        </p>
+                      </div>
+                    </li>
+
+                    <li class="trace-stage" data-trace-stage="2">
+                      <div class="trace-stage-topline">
+                        <span class="trace-stage-index">03</span>
+                        <div class="trace-stage-heading">
+                          <h3 class="trace-stage-title">Audit system readiness</h3>
+                        </div>
+                      </div>
+
+                      <div class="trace-stage-body">
+                        <p class="trace-stage-doctrine">
+                          Check stack, access, and feasibility before scope.
+                        </p>
+
+                        <div class="trace-stage-details">
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this does</p>
+                            <p class="trace-detail-copy">
+                              Evaluate integrations, permissions, compliance, ownership, and
+                              implementation conditions.
+                            </p>
+                          </div>
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this prevents</p>
+                            <p class="trace-detail-copy">
+                              False pricing confidence and brittle builds.
+                            </p>
+                          </div>
+                        </div>
+
+                        <p class="trace-stage-output">
+                          Output
+                          <span>Readiness scan</span>
+                        </p>
+                      </div>
+                    </li>
+
+                    <li class="trace-stage" data-trace-stage="3">
+                      <div class="trace-stage-topline">
+                        <span class="trace-stage-index">04</span>
+                        <div class="trace-stage-heading">
+                          <h3 class="trace-stage-title">Create the system</h3>
+                        </div>
+                      </div>
+
+                      <div class="trace-stage-body">
+                        <p class="trace-stage-doctrine">
+                          Define the smallest high-leverage system worth building first.
+                        </p>
+
+                        <div class="trace-stage-details">
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this does</p>
+                            <p class="trace-detail-copy">
+                              Shape the best phase-one implementation inside the current
+                              environment.
+                            </p>
+                          </div>
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this prevents</p>
+                            <p class="trace-detail-copy">
+                              Overscoping and rebuilding too much too early.
+                            </p>
+                          </div>
+                        </div>
+
+                        <p class="trace-stage-output">
+                          Output
+                          <span>Phase-one system</span>
+                        </p>
+                      </div>
+                    </li>
+
+                    <li class="trace-stage" data-trace-stage="4">
+                      <div class="trace-stage-topline">
+                        <span class="trace-stage-index">05</span>
+                        <div class="trace-stage-heading">
+                          <h3 class="trace-stage-title">Embed and refine</h3>
+                        </div>
+                      </div>
+
+                      <div class="trace-stage-body">
+                        <p class="trace-stage-doctrine">
+                          Make the system usable, adopted, and stronger over time.
+                        </p>
+
+                        <div class="trace-stage-details">
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this does</p>
+                            <p class="trace-detail-copy">
+                              Support rollout, team usage, measurement, and refinement until the
+                              workflow holds.
+                            </p>
+                          </div>
+                          <div class="trace-stage-detail">
+                            <p class="trace-detail-label">What this prevents</p>
+                            <p class="trace-detail-copy">
+                              Abandoned automation and relapse into manual work.
+                            </p>
+                          </div>
+                        </div>
+
+                        <p class="trace-stage-output">
+                          Output
+                          <span>Embedded operating layer</span>
+                        </p>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+
+                <div class="trace-closing">
+                  <p class="trace-closing-line">
+                    One bottleneck. One clear phase one. Built inside your current stack.
+                  </p>
+                  <p class="trace-bridge-line">
+                    TRACE turns operational noise into a controlled next step.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="contact-section" id="contact" aria-labelledby="contact-heading">
+        <div class="section-shell contact-shell">
+          <div
+            class="contact-intro"
+            data-scroll-heading-group
+            data-scroll-distance="124"
+            data-scroll-sub-distance="148"
+            data-scroll-start="top 84%"
+          >
+            <p class="contact-eyebrow">Let&apos;s get in touch</p>
+            <h2 class="section-headline scroll-heading" id="contact-heading">
+              Bring us the bottleneck that&apos;s slowing your team down<span>.</span>
+            </h2>
+            <p class="section-copy scroll-subheading">
+              This is built for growing businesses that want practical AI systems inside
+              the tools they already use, without bloated scope, unnecessary platform
+              changes, or loss of control.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-brief">
+              <div class="contact-proof-list" aria-label="Who this is for">
+                <article class="contact-proof-card">
+                  <p class="contact-proof-label">Best fit</p>
+                  <h3>Founders, operators, and team leads who need a controlled phase one.</h3>
+                  <p>
+                    If manual work is compounding, handoffs are messy, or follow-up depends
+                    on too much memory and too many tabs, this is where the right project
+                    usually starts.
+                  </p>
+                </article>
+
+                <article class="contact-proof-card">
+                  <p class="contact-proof-label">What to bring</p>
+                  <h3>Your current stack, the real drag, and the outcome worth solving first.</h3>
+                  <p>
+                    Share the systems involved, where the workflow breaks down, and what a
+                    cleaner phase-one result would unlock for the business.
+                  </p>
+                </article>
+              </div>
+
+              <aside class="contact-direct-card" aria-label="How the first conversation works">
+                <p class="contact-direct-kicker">How the first conversation works</p>
+                <h3>Clear diagnosis first. System design second.</h3>
+                <p class="contact-direct-copy">
+                  We start with the workflow, identify the true bottleneck, and decide
+                  whether there&apos;s a sensible phase-one system to build inside your current
+                  environment.
+                </p>
+
+                <ul class="contact-checklist">
+                  <li>Current stack and key handoffs</li>
+                  <li>The manual work your team keeps compensating for</li>
+                  <li>The first operational outcome worth fixing</li>
+                </ul>
+              </aside>
+            </div>
+
+            <form class="contact-form" data-contact-form>
+              <div class="contact-form-head">
+                <p class="contact-form-kicker">Contact us</p>
+                <h3>Prepare your enquiry.</h3>
+                <p>
+                  Fill this out to create a clean enquiry summary you can send through your
+                  preferred contact channel.
+                </p>
+              </div>
+
+              <div class="contact-form-row">
+                <label class="contact-field">
+                  <span>Name</span>
+                  <input type="text" name="name" autocomplete="name" required />
+                </label>
+                <label class="contact-field">
+                  <span>Company</span>
+                  <input type="text" name="company" autocomplete="organization" required />
+                </label>
+              </div>
+
+              <div class="contact-form-row">
+                <label class="contact-field">
+                  <span>Email</span>
+                  <input type="email" name="email" autocomplete="email" required />
+                </label>
+                <label class="contact-field">
+                  <span>Timeline</span>
+                  <input
+                    type="text"
+                    name="timeline"
+                    placeholder="ASAP, this quarter, planning for later..."
+                    required
+                  />
+                </label>
+              </div>
+
+              <label class="contact-field">
+                <span>Current stack</span>
+                <input
+                  type="text"
+                  name="stack"
+                  placeholder="HubSpot, Gmail, Xero, Notion, Slack..."
+                  required
+                />
+              </label>
+
+              <label class="contact-field">
+                <span>Biggest bottleneck</span>
+                <textarea
+                  name="bottleneck"
+                  rows="5"
+                  placeholder="What keeps slowing the team down, where it shows up, and what is still handled manually."
+                  required
+                ></textarea>
+              </label>
+
+              <label class="contact-field">
+                <span>Ideal outcome</span>
+                <textarea
+                  name="outcome"
+                  rows="4"
+                  placeholder="What would a strong phase-one result look like for your team?"
+                  required
+                ></textarea>
+              </label>
+
+              <button class="contact-submit" type="submit">Send enquiry</button>
+              <p class="contact-form-note" data-contact-status>
+                This is currently a demo contact form. Connect it to your inbox, CRM, or
+                booking flow when you&apos;re ready.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+      <div class="section-shell footer-shell">
+        <div class="footer-brand-block">
+          <a class="brand footer-brand" href="#home" aria-label="Summit AI home">
+            <img
+              class="brand-mark"
+              src="./assets/mountain.png"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+            />
+            <span>Summit AI</span>
+          </a>
+          <p class="footer-copy">
+            AI workflow systems for growing businesses. Built inside your current stack,
+            with human review where risk matters.
+          </p>
+        </div>
+
+        <div class="footer-links" aria-label="Footer navigation">
+          <div class="footer-column">
+            <p class="footer-heading">Navigate</p>
+            <a href="#home">Home</a>
+            <a href="#work">Our Work</a>
+            <a href="#trace">TRACE</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <div class="footer-column">
+            <p class="footer-heading">Built for</p>
+            <span>Growing businesses</span>
+            <span>Current-stack delivery</span>
+            <span>Controlled AI rollout</span>
+          </div>
+
+          <div class="footer-column">
+            <p class="footer-heading">Approach</p>
+            <span>One bottleneck first</span>
+            <span>Human review where risk matters</span>
+            <span>Operational clarity before scope</span>
+          </div>
+        </div>
+
+        <div class="footer-meta">
+          <p>&copy; 2025 Summit AI. One bottleneck first. One clear phase one.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>
