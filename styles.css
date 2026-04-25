@@ -35,6 +35,7 @@ html {
   min-height: 100%;
   background: var(--white);
   scroll-padding-top: var(--nav-height);
+  -webkit-text-size-adjust: 100%;
 }
 
 html.lenis,
@@ -409,7 +410,7 @@ body:not(.is-loading) .site-loader {
   --logo-fade-edge: 3%;
   --logos-visible-desktop: 8;
   --logos-visible-tablet: 6;
-  --logos-visible-mobile: 4;
+  --logos-visible-mobile: 3;
   --logos-visible: var(--logos-visible-desktop);
   container-type: inline-size;
   position: absolute;
@@ -493,25 +494,27 @@ body:not(.is-loading) .site-loader {
 
 .hero-visual {
   --hero-diagram-top: 22px;
-  --hero-diagram-height: 352px;
+  --hero-diagram-min-height: 352px;
   position: relative;
   z-index: 2;
-  min-height: max(520px, calc(var(--hero-diagram-top) + var(--hero-diagram-height) + 24px));
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: var(--hero-diagram-top);
+  min-height: max(520px, calc(var(--hero-diagram-top) + var(--hero-diagram-min-height) + 24px));
 }
 
 .workflow-diagram {
-  position: absolute;
-  top: var(--hero-diagram-top);
-  right: 38px;
+  position: relative;
   width: min(440px, 100%);
-  height: var(--hero-diagram-height);
 }
 
 .workflow-diagram-shell {
   position: relative;
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 0;
-  height: 100%;
+  min-height: var(--hero-diagram-min-height);
   padding: 16px 20px 16px;
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 22px;
@@ -1329,16 +1332,19 @@ body:not(.is-loading) .site-loader {
   line-height: 1.32;
 }
 
-.case-study-card:hover .case-study-image {
+.case-study-card:hover .case-study-image,
+.case-study-card.is-active .case-study-image {
   transform: scale(1.08);
   filter: blur(12px);
 }
 
-.case-study-card:hover .case-study-overlay {
+.case-study-card:hover .case-study-overlay,
+.case-study-card.is-active .case-study-overlay {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.44) 0%, rgba(0, 0, 0, 0.22) 52%, rgba(0, 0, 0, 0.08) 100%);
 }
 
-.case-study-card:hover .case-study-logo {
+.case-study-card:hover .case-study-logo,
+.case-study-card.is-active .case-study-logo {
   top: 34px;
   left: 34px;
   width: 118px;
@@ -1346,7 +1352,8 @@ body:not(.is-loading) .site-loader {
   transform: translate(0, 0);
 }
 
-.case-study-card:hover .case-study-copy {
+.case-study-card:hover .case-study-copy,
+.case-study-card.is-active .case-study-copy {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1727,23 +1734,38 @@ body:not(.is-loading) .site-loader {
   }
 
   .site-header {
-    grid-template-columns: 1fr auto;
-    gap: 24px;
-    padding: 0 24px;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+    padding: 0 20px;
   }
 
   .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: clamp(10px, 1.8vw, 18px);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    font-size: 14px;
+  }
+
+  .nav-links::-webkit-scrollbar {
     display: none;
   }
 
+  .nav-links a {
+    flex: 0 0 auto;
+    padding: 8px 0;
+  }
+
   .nav-accent {
-    width: 52px;
+    display: none;
   }
 
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 62px 32px 48px;
+    gap: 32px;
+    padding: 54px 28px 40px;
     padding-bottom: max(48px, var(--hero-carousel-clearance, 110px));
   }
 
@@ -1771,24 +1793,30 @@ body:not(.is-loading) .site-loader {
 
   .hero-subheadline {
     max-width: 650px;
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 1.5;
   }
 
   .hero-logo-carousel {
     --logos-visible: var(--logos-visible-tablet);
     --logo-height: clamp(22px, 2.6vw, 28px);
     --logo-gap: clamp(12px, 1.8vw, 16px);
+    left: 28px;
+    right: 28px;
+    bottom: 18px;
   }
 
   .hero-visual {
-    --hero-diagram-top: 12px;
-    --hero-diagram-height: 320px;
-    min-height: max(390px, calc(var(--hero-diagram-top) + var(--hero-diagram-height) + 20px));
+    --hero-diagram-top: 0px;
+    --hero-diagram-min-height: 320px;
+    justify-content: center;
+    min-height: auto;
+    padding-top: 0;
   }
 
   .workflow-diagram {
-    right: 18px;
     width: min(420px, 100%);
+    transform: none;
   }
 
   .next-section {
@@ -1941,7 +1969,8 @@ body:not(.is-loading) .site-loader {
     width: clamp(128px, 24vw, 190px);
   }
 
-  .case-study-card:hover .case-study-logo {
+  .case-study-card:hover .case-study-logo,
+  .case-study-card.is-active .case-study-logo {
     top: 28px;
     left: 28px;
     width: 106px;
@@ -2008,11 +2037,27 @@ body:not(.is-loading) .site-loader {
   }
 
   .site-header {
-    padding: 0 18px;
+    gap: 10px;
+    padding: 0 14px;
   }
 
   .brand {
-    font-size: 20px;
+    gap: 5px;
+    font-size: 18px;
+  }
+
+  .brand-mark {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-links {
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .nav-links a {
+    padding: 6px 0;
   }
 
   .page-shell {
@@ -2025,8 +2070,13 @@ body:not(.is-loading) .site-loader {
 
   .hero-content {
     min-height: calc(100svh - var(--nav-height) - var(--frame-gutter));
-    padding: 44px 20px 32px;
+    gap: 24px;
+    padding: 36px 18px 28px;
     padding-bottom: max(32px, var(--hero-carousel-clearance, 88px));
+  }
+
+  .hero-copy {
+    max-width: none;
   }
 
   .hero-social-proof {
@@ -2057,13 +2107,14 @@ body:not(.is-loading) .site-loader {
   }
 
   .hero-headline {
-    font-size: 38px;
+    font-size: clamp(34px, 10vw, 40px);
     line-height: 1;
   }
 
   .hero-subheadline {
-    margin-top: 22px;
-    font-size: 16px;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   .hero-actions {
@@ -2085,8 +2136,12 @@ body:not(.is-loading) .site-loader {
 
   .hero-logo-carousel {
     --logos-visible: var(--logos-visible-mobile);
-    --logo-height: clamp(18px, 4.8vw, 24px);
-    --logo-gap: clamp(10px, 3vw, 12px);
+    --logo-height: clamp(18px, 4.8vw, 22px);
+    --logo-gap: 10px;
+    --logo-fade-edge: 8%;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
   }
 
   .logo-marquee-item {
@@ -2095,16 +2150,47 @@ body:not(.is-loading) .site-loader {
 
   .hero-visual {
     --hero-diagram-top: 0px;
-    --hero-diagram-height: 246px;
-    min-height: max(340px, calc(var(--hero-diagram-top) + var(--hero-diagram-height) + 18px));
+    --hero-diagram-min-height: 0px;
+    min-height: auto;
   }
 
   .workflow-diagram {
-    left: 50%;
-    right: auto;
-    width: 100%;
-    transform: translateX(-50%) scale(0.78);
-    transform-origin: top center;
+    width: min(390px, 100%);
+    transform: none;
+  }
+
+  .workflow-diagram-shell {
+    min-height: 0;
+    padding: 14px 16px 16px;
+    border-radius: 20px;
+  }
+
+  .workflow-stage-preview-item {
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .workflow-stage-preview-index {
+    padding-top: 3px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .workflow-stage-preview-copy strong {
+    font-size: clamp(18px, 5.8vw, 22px);
+    line-height: 1.08;
+  }
+
+  .workflow-stage-preview-copy span {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .workflow-diagram-output {
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
   }
 
   .next-section {
@@ -2241,7 +2327,7 @@ body:not(.is-loading) .site-loader {
   }
 
   .section-shell {
-    width: min(100%, calc(100% - 24px));
+    width: min(100%, calc(100% - 20px));
   }
 
   .section-headline {
@@ -2260,19 +2346,19 @@ body:not(.is-loading) .site-loader {
   }
 
   .case-study-card {
-    min-height: 420px;
+    min-height: 440px;
     border-radius: 20px;
   }
 
   .case-study-copy {
     grid-template-columns: 1fr;
-    row-gap: 26px;
-    padding: 22px 20px;
+    row-gap: 18px;
+    padding: 20px 18px;
   }
 
   .case-study-meta {
-    max-width: 170px;
-    padding-top: 68px;
+    max-width: none;
+    padding-top: 58px;
   }
 
   .case-study-industry {
@@ -2283,14 +2369,15 @@ body:not(.is-loading) .site-loader {
     width: min(136px, 48%);
   }
 
-  .case-study-card:hover .case-study-image {
+  .case-study-card:hover .case-study-image,
+  .case-study-card.is-active .case-study-image {
     transform: scale(1.05);
     filter: blur(8px);
   }
 
   .case-study-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 14px 12px;
   }
 
   .case-study-stat {
@@ -2298,15 +2385,17 @@ body:not(.is-loading) .site-loader {
   }
 
   .case-study-stat-value {
-    font-size: 34px;
+    font-size: clamp(30px, 8vw, 34px);
   }
 
   .case-study-stat-label {
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.28;
   }
 
-  .case-study-card:hover .case-study-logo {
+  .case-study-card:hover .case-study-logo,
+  .case-study-card.is-active .case-study-logo {
     top: 20px;
     left: 20px;
     width: 88px;
@@ -2414,6 +2503,37 @@ body:not(.is-loading) .site-loader {
   .footer-column span,
   .footer-meta p {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 390px) {
+  .workflow-diagram-shell {
+    padding: 12px 14px 14px;
+  }
+
+  .workflow-stage-preview-item {
+    gap: 8px;
+    padding: 9px 0;
+  }
+
+  .workflow-stage-preview-copy strong {
+    font-size: clamp(16px, 5.4vw, 20px);
+  }
+
+  .workflow-stage-preview-copy span {
+    font-size: 11px;
+  }
+
+  .workflow-diagram-output {
+    font-size: 8px;
+  }
+
+  .case-study-card {
+    min-height: 520px;
+  }
+
+  .case-study-stats {
+    grid-template-columns: 1fr;
   }
 }
 

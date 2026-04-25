@@ -13,6 +13,7 @@ const siteLoader = document.querySelector("[data-site-loader]");
 const root = document.documentElement;
 const body = document.body;
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const hoverCapableQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 
 let heroFrame = 0;
 let heroCarouselFrame = 0;
@@ -27,6 +28,9 @@ let loaderDismissed = false;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const lerp = (start, end, progress) => start + (end - start) * progress;
+const isMobileLayout = () => window.innerWidth <= 900;
+const isPhoneLayout = () => window.innerWidth <= 560;
+const shouldUseNativeScroll = () => reduceMotionQuery.matches || isMobileLayout() || !hoverCapableQuery.matches;
 
 const dismissSiteLoader = () => {
   if (!siteLoader || !body || loaderDismissed) {
@@ -72,7 +76,7 @@ const destroySmoothScroll = () => {
 };
 
 const initSmoothScroll = () => {
-  if (lenisInstance || reduceMotionQuery.matches) {
+  if (lenisInstance || shouldUseNativeScroll()) {
     return;
   }
 
@@ -101,7 +105,7 @@ const initSmoothScroll = () => {
 };
 
 const syncSmoothScrollPreference = () => {
-  if (reduceMotionQuery.matches) {
+  if (shouldUseNativeScroll()) {
     destroySmoothScroll();
     return;
   }
@@ -110,6 +114,7 @@ const syncSmoothScrollPreference = () => {
 };
 
 syncSmoothScrollPreference();
+window.addEventListener("resize", syncSmoothScrollPreference);
 window.addEventListener("load", () => {
   lenisInstance?.resize();
   window.ScrollTrigger?.refresh();
@@ -122,10 +127,16 @@ if (reduceMotionQuery.addEventListener) {
   reduceMotionQuery.addListener(syncSmoothScrollPreference);
 }
 
+if (hoverCapableQuery.addEventListener) {
+  hoverCapableQuery.addEventListener("change", syncSmoothScrollPreference);
+} else {
+  hoverCapableQuery.addListener(syncSmoothScrollPreference);
+}
+
 const getHeroSettings = () => {
   const width = window.innerWidth;
 
-  if (width <= 560) {
+  if (isPhoneLayout()) {
     return {
       scaleX: 0.978,
       scaleY: 0.996,
@@ -135,7 +146,7 @@ const getHeroSettings = () => {
     };
   }
 
-  if (width <= 900) {
+  if (isMobileLayout()) {
     return {
       scaleX: 0.968,
       scaleY: 0.994,
@@ -165,7 +176,7 @@ const applyStaticHero = () => {
 const updateHeroFrame = () => {
   heroFrame = 0;
 
-  if (!hero || reduceMotionQuery.matches) {
+  if (!hero || reduceMotionQuery.matches || isMobileLayout()) {
     applyStaticHero();
     return;
   }
@@ -342,8 +353,8 @@ const getTraceSettings = () => {
   };
 };
 
-const isTraceMobileLayout = () => window.innerWidth <= 560;
-const isTracePinnedLayout = () => window.innerWidth > 560;
+const isTraceMobileLayout = () => isPhoneLayout();
+const isTracePinnedLayout = () => !isPhoneLayout();
 
 const applyTraceFrameState = (entryProgress = 1, exitProgress = 0) => {
   const traceSettings = getTraceSettings();
@@ -656,8 +667,8 @@ const initScrollHeadingGlide = () => {
 
     const desktopDistance = Number(group.dataset.scrollDistance || 132);
     const desktopSubDistance = Number(group.dataset.scrollSubDistance || 156);
-    const isMobile = window.innerWidth <= 560;
-    const isTablet = window.innerWidth <= 900;
+    const isMobile = isPhoneLayout();
+    const isTablet = isMobileLayout();
     const headingDistance = isMobile ? desktopDistance * 0.62 : isTablet ? desktopDistance * 0.78 : desktopDistance;
     const subheadingDistance = isMobile ? desktopSubDistance * 0.62 : isTablet ? desktopSubDistance * 0.78 : desktopSubDistance;
     const triggerStart = group.dataset.scrollStart || "top 82%";
@@ -689,13 +700,28 @@ const initScrollHeadingGlide = () => {
 initScrollHeadingGlide();
 
 const initCaseStudyStatCounters = () => {
-  const cards = document.querySelectorAll(".case-study-card");
+  const cards = Array.from(document.querySelectorAll(".case-study-card:not(.case-study-card--hidden)"));
 
   if (!cards.length) {
     return;
   }
 
   const counterStates = new WeakMap();
+  const touchRevealThreshold = 0.35;
+
+  const getCounterState = (card) => {
+    const existingState = counterStates.get(card);
+
+    if (existingState) {
+      return existingState;
+    }
+
+    const nextState = { frame: 0, revealedOnTouch: false };
+    counterStates.set(card, nextState);
+    return nextState;
+  };
+
+  const isCardExpanded = (card) => card.classList.contains("is-active") || card.matches(":hover");
 
   const formatCounterValue = (counter, value) => {
     const decimals = Number(counter.dataset.decimals || 0);
@@ -713,26 +739,29 @@ const initCaseStudyStatCounters = () => {
     });
   };
 
-  const resetCardCounters = (card) => {
-    const state = counterStates.get(card);
+  const stopCardCounterAnimation = (card) => {
+    const state = getCounterState(card);
 
-    if (state?.frame) {
+    if (state.frame) {
       cancelAnimationFrame(state.frame);
+      state.frame = 0;
     }
+  };
 
-    counterStates.set(card, { frame: 0 });
+  const resetCardCounters = (card) => {
+    stopCardCounterAnimation(card);
     setCardCounters(card, 0);
   };
 
   const animateCardCounters = (card) => {
-    resetCardCounters(card);
+    stopCardCounterAnimation(card);
 
     if (reduceMotionQuery.matches) {
-      setCardCounters(card, 1);
+      setCardCounters(card, isCardExpanded(card) ? 1 : 0);
       return;
     }
 
-    const state = { frame: 0 };
+    const state = getCounterState(card);
     const start = performance.now();
     const duration = 920;
 
@@ -742,34 +771,106 @@ const initCaseStudyStatCounters = () => {
 
       setCardCounters(card, easedProgress);
 
-      if (rawProgress < 1 && card.matches(":hover")) {
+      if (rawProgress < 1 && isCardExpanded(card)) {
         state.frame = window.requestAnimationFrame(step);
         return;
       }
 
       state.frame = 0;
-      setCardCounters(card, card.matches(":hover") ? 1 : 0);
+      setCardCounters(card, isCardExpanded(card) ? 1 : 0);
     };
 
     state.frame = window.requestAnimationFrame(step);
-    counterStates.set(card, state);
+  };
+
+  const revealTouchCard = (card, shouldAnimate = true) => {
+    const state = getCounterState(card);
+
+    card.classList.add("is-active");
+
+    if (state.revealedOnTouch) {
+      setCardCounters(card, 1);
+      return;
+    }
+
+    state.revealedOnTouch = true;
+
+    if (shouldAnimate && !reduceMotionQuery.matches) {
+      animateCardCounters(card);
+      return;
+    }
+
+    setCardCounters(card, 1);
   };
 
   cards.forEach((card) => {
+    getCounterState(card);
     setCardCounters(card, 0);
 
     card.addEventListener("pointerenter", () => {
+      if (!hoverCapableQuery.matches) {
+        return;
+      }
+
       animateCardCounters(card);
     });
 
     card.addEventListener("pointerleave", () => {
+      if (!hoverCapableQuery.matches) {
+        return;
+      }
+
       resetCardCounters(card);
+    });
+
+    card.addEventListener("click", () => {
+      if (hoverCapableQuery.matches) {
+        return;
+      }
+
+      revealTouchCard(card, false);
     });
   });
 
+  if (!hoverCapableQuery.matches) {
+    if ("IntersectionObserver" in window) {
+      const touchRevealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || entry.intersectionRatio < touchRevealThreshold) {
+              return;
+            }
+
+            revealTouchCard(entry.target);
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: [touchRevealThreshold, 0.6],
+        },
+      );
+
+      cards.forEach((card) => {
+        touchRevealObserver.observe(card);
+      });
+    } else {
+      cards.forEach((card) => {
+        revealTouchCard(card, false);
+      });
+    }
+  }
+
   const handleMotionPreferenceChange = () => {
     cards.forEach((card) => {
-      if (reduceMotionQuery.matches && card.matches(":hover")) {
+      const state = getCounterState(card);
+
+      if (!hoverCapableQuery.matches && state.revealedOnTouch) {
+        card.classList.add("is-active");
+        setCardCounters(card, 1);
+        return;
+      }
+
+      if (reduceMotionQuery.matches && isCardExpanded(card)) {
         setCardCounters(card, 1);
         return;
       }
